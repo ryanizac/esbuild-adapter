@@ -1,14 +1,17 @@
 {
   "name": "esbuild-adapter",
   "version": "1.0.0",
-  "description": "",
+  "description": "An adaptation of Esbuild to watch development mode with Nodemon",
   "main": "dist/index.js",
   "scripts": {
     "build": "esbuild src/main/index.ts --bundle --platform=node --packages=external --outdir=dist",
     "dev:build": "npm run build -- --watch",
     "test": "jest"
   },
-  "keywords": [],
+  "keywords": [
+    "esbuild",
+    "esbuild-adapter"
+  ],
   "author": "Ryan Izac <io.ryan@outlook.com>",
   "license": "MIT",
   "devDependencies": {
