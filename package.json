@@ -1,0 +1,25 @@
+{
+  "name": "esbuild-adapter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "esbuild src/main/index.ts --bundle --platform=node --packages=external --outdir=dist",
+    "dev:build": "npm run build -- --watch",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Ryan Izac <io.ryan@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "@types/node": "^18.16.0",
+    "@types/nodemon": "^1.19.2",
+    "jest": "^29.5.0",
+    "typescript": "^5.0.4"
+  },
+  "peerDependencies": {
+    "esbuild": "^0.17.18",
+    "nodemon": "^2.0.22"
+  }
+}
