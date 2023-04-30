@@ -1,23 +1,25 @@
-import * as esbuild from "../esbuild";
+import { Esbuild } from "../esbuild";
 import { Options } from "../options";
-import { checkEmptyObject } from "../utils";
+import * as utils from "../utils";
 
 async function main() {
   const [buildOptions, compilerOptions] = await Options.load();
 
-  if (checkEmptyObject(buildOptions)) {
+  if (utils.checkEmptyObject(buildOptions)) {
     console.log("[compiler] no build options");
     process.exit(1);
   }
 
+  const esbuild = new Esbuild(buildOptions);
+
   if (!compilerOptions.watch) {
-    await esbuild.pureBuild(buildOptions);
+    await esbuild.pureBuild();
     console.log("[compiler] Build complete");
     console.log("[compiler] Closing compiler");
     process.exit();
   }
 
-  await esbuild.watchMode(buildOptions);
+  await esbuild.watchMode();
   console.log("[compiler] Build complete");
   console.log("[compiler] Watching changes");
 }
