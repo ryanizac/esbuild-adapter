@@ -1,6 +1,6 @@
 {
   "name": "esbuild-adapter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An adaptation of Esbuild to watch development mode with Nodemon",
   "main": "dist/index.js",
   "files": [
