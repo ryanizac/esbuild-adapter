@@ -40,7 +40,7 @@ class Application {
     const stageObserver = new StageObserver();
     const esbuild = new Esbuild(buildOptions);
 
-    esbuild.addPlugin(WatchBuildPlugin);
+    esbuild.addPlugin(new WatchBuildPlugin());
 
     this.preapreStageLogs(stageObserver);
 

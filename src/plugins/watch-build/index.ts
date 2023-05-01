@@ -1,8 +1,9 @@
-import { Plugin } from "esbuild";
+import { Plugin, PluginBuild } from "esbuild";
 
-export const WatchBuildPlugin: Plugin = {
-  name: "watch-build-plugin",
-  setup(build) {
+export class WatchBuildPlugin implements Plugin {
+  readonly name = "watch-build-plugin";
+
+  setup(build: PluginBuild) {
     build.onStart(() => {
       console.log("[watch-build] Start build");
     });
@@ -10,5 +11,5 @@ export const WatchBuildPlugin: Plugin = {
     build.onEnd(() => {
       console.log("[watch-build] End build");
     });
-  },
-};
+  }
+}
