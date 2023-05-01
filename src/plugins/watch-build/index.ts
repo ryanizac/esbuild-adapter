@@ -1,17 +1,24 @@
 import { Plugin, PluginBuild } from "esbuild";
 import { EsbuildPlugin } from "../shared";
+import { StageObserver } from "./ports";
 
 @EsbuildPlugin
 export class WatchBuildPlugin implements Plugin {
   readonly name = "watch-build-plugin";
 
-  setup(build: PluginBuild) {
-    build.onStart(() => {
-      console.log("[watch-build] Start build");
-    });
+  private wasBuilt: boolean = false;
 
+  constructor(private stageObserver: StageObserver) {}
+
+  setup(build: PluginBuild) {
     build.onEnd(() => {
-      console.log("[watch-build] End build");
+      if (this.wasBuilt) {
+        this.stageObserver.emit("rebuild");
+        return;
+      }
+
+      this.stageObserver.emit("build");
+      this.wasBuilt = true;
     });
   }
 }
