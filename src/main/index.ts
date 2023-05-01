@@ -23,11 +23,11 @@ class Application {
     });
 
     stageObserver.on("build", () => {
-      console.log("[compiler] Building");
+      console.log("[compiler] Build complete");
     });
 
     stageObserver.on("rebuild", () => {
-      console.log("[compiler] Rebuilding");
+      console.log("[compiler] Rebuild complete");
     });
 
     stageObserver.on("watch", () => {
@@ -48,7 +48,6 @@ class Application {
 
     if (!compilerOptions.watch) {
       await esbuild.pureBuild();
-      stageObserver.emit("build");
       process.exit();
     }
 
