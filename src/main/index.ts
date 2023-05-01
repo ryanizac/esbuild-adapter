@@ -1,6 +1,7 @@
 import { Esbuild } from "../esbuild";
 import { Options } from "../options";
 import { WatchBuildPlugin } from "../plugins";
+import { StageObserver } from "../stage";
 import * as utils from "../utils";
 
 class Application {
@@ -16,20 +17,43 @@ class Application {
     return options;
   }
 
+  private static preapreStageLogs(stageObserver: StageObserver) {
+    stageObserver.on("start", () => {
+      console.log("[compiler] Start");
+    });
+
+    stageObserver.on("build", () => {
+      console.log("[compiler] Building");
+    });
+
+    stageObserver.on("rebuild", () => {
+      console.log("[compiler] Rebuilding");
+    });
+
+    stageObserver.on("watch", () => {
+      console.log("[compiler] Watching changes");
+    });
+  }
+
   static async main() {
     const [buildOptions, compilerOptions] = await this.loadOptions();
+    const stageObserver = new StageObserver();
     const esbuild = new Esbuild(buildOptions);
 
     esbuild.addPlugin(WatchBuildPlugin);
 
+    this.preapreStageLogs(stageObserver);
+
+    stageObserver.emit("start");
+
     if (!compilerOptions.watch) {
       await esbuild.pureBuild();
-      console.log("[compiler] Closing compiler");
+      stageObserver.emit("build");
       process.exit();
     }
 
     await esbuild.watchMode();
-    console.log("[compiler] Watching changes");
+    stageObserver.emit("watch");
   }
 }
 
