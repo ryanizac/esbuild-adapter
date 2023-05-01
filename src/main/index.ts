@@ -17,13 +17,11 @@ async function main() {
 
   if (!compilerOptions.watch) {
     await esbuild.pureBuild();
-    console.log("[compiler] Build complete");
     console.log("[compiler] Closing compiler");
     process.exit();
   }
 
   await esbuild.watchMode();
-  console.log("[compiler] Build complete");
   console.log("[compiler] Watching changes");
 }
 
