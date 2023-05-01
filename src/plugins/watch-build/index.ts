@@ -1,5 +1,7 @@
 import { Plugin, PluginBuild } from "esbuild";
+import { EsbuildPlugin } from "../shared";
 
+@EsbuildPlugin
 export class WatchBuildPlugin implements Plugin {
   readonly name = "watch-build-plugin";
 
