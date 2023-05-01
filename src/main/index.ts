@@ -1,5 +1,6 @@
 import { Esbuild } from "../esbuild";
 import { Options } from "../options";
+import { WatchBuildPlugin } from "../plugins";
 import * as utils from "../utils";
 
 async function main() {
@@ -11,6 +12,8 @@ async function main() {
   }
 
   const esbuild = new Esbuild(buildOptions);
+
+  esbuild.addPlugin(WatchBuildPlugin);
 
   if (!compilerOptions.watch) {
     await esbuild.pureBuild();

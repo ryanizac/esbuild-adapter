@@ -1,10 +1,23 @@
-import { BuildOptions, build, context } from "esbuild";
+import { BuildOptions, Plugin, build, context } from "esbuild";
 
 export class Esbuild {
-  options: BuildOptions;
+  private readonly options: BuildOptions;
 
-  constructor(initialOptions: BuildOptions) {
-    this.options = initialOptions;
+  constructor({ plugins: initialPlugins, ...initialOptions }: BuildOptions) {
+    const options = Esbuild.prepareOptions(initialOptions);
+
+    this.options = options;
+  }
+
+  private static prepareOptions(initialOptions: BuildOptions): BuildOptions {
+    return {
+      ...initialOptions,
+      plugins: initialOptions.plugins || [],
+    };
+  }
+
+  addPlugin(...plugins: Plugin[]) {
+    this.options.plugins?.push(...plugins);
   }
 
   async pureBuild() {
