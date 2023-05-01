@@ -2,6 +2,17 @@
 
 An adaptation of Esbuild to watch development mode with Nodemon
 
+## Available Features
+
+- Load file config `esbuild.json`
+- Watch mode
+
+## Project Goals
+
+- Read file `esbuild.config.js`
+- Emit commands with Node child_process
+- Load TS Paths Natively
+
 ## Project Release Guide
 
 | Version Example | When use                                  |
